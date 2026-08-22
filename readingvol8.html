@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ms Lê Hằng English - IELTS Reading Mock Test</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary-pink: #ff758c;
+            --primary-dark: #ff7f50;
+            --pastel-purple: #8854c0;
+            --pastel-yellow: #fdcb6e;
+            --pastel-green: #00c9a7;
+            --correct-green: #00d26a;
+            --wrong-red: #ff4757;
+            --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a1c4fd 100%);
+            --highlight-color: #d8b4fe;
+            --text-main: #2d3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: text;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-main);
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* SVG Emoji Pattern Background */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="10" y="30" font-size="20">🐋</text><text x="60" y="70" font-size="20">🌿</text><text x="20" y="80" font-size="20">🧪</text><text x="70" y="30" font-size="20">🌟</text></svg>');
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Top Header Control Bar */
+        .top-bar {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-bottom: 3px solid #f0e6ff;
+        }
+
+        .brand-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-title {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--pastel-purple);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-subtitle {
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: #f0f3ff;
+            color: #4a69bd;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .timer-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 2px solid var(--pastel-yellow);
+            box-shadow: 0 4px 0 var(--pastel-yellow);
+        }
+
+        .timer-display {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #d63031;
+            font-family: monospace;
+        }
+
+        .btn-game {
+            border: none;
+            outline: none;
+            padding: 8px 16px;
+            border-radius: 16px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-timer {
+            background: var(--pastel-yellow);
+            color: #6c5ce7;
+            box-shadow: 0 4px 0 #e1b12c;
+        }
+
+        .btn-timer:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #e1b12c;
+        }
+
+        .btn-submit {
+            background: var(--correct-green);
+            color: #fff;
+            box-shadow: 0 4px 0 #00b894;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #00b894;
+        }
+
+        /* Passage Tabs */
+        .tabs-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tab-btn {
+            background: #f1f2f6;
+            color: #747d8c;
+            padding: 6px 14px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--pastel-purple);
+            color: #fff;
+            box-shadow: 0 3px 0 #5f27cd;
+        }
+
+        /* Overall Progress Bar */
+        .progress-wrapper {
+            width: 150px;
+            background: #eccc68;
+            height: 14px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #fff;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--pastel-green);
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.65rem;
+            font-weight: 900;
+            color: #2d3436;
+        }
+
+        /* Main Split Screen Area */
+        .split-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            padding: 12px;
+            gap: 12px;
+        }
+
+        /* Left & Right Panels */
+        .panel {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            padding: 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-header {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--pastel-purple);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px dashed #dfe4ea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Reading Passage Typography */
+        .passage-content {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: #2f3542;
+        }
+
+        .passage-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #3742fa;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .passage-subtitle {
+            font-style: italic;
+            text-align: center;
+            color: #747d8c;
+            margin-bottom: 20px;
+        }
+
+        .paragraph-block {
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            padding: 14px;
+            border-radius: 14px;
+            border-left: 4px solid var(--pastel-purple);
+            position: relative;
+        }
+
+        .btn-translate {
+            margin-top: 8px;
+            background: #eccc68;
+            color: #2d3436;
+            font-size: 0.78rem;
+            padding: 4px 10px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 0 #ffa502;
+            transition: all 0.2s;
+        }
+
+        .btn-translate:hover {
+            transform: scale(1.02);
+        }
+
+        .translation-box {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #fff8e7;
+            border-radius: 10px;
+            border: 1px solid #ffeaa7;
+            font-size: 0.92rem;
+            color: #d63031;
+            line-height: 1.6;
+        }
+
+        /* Custom User Highlight */
+        .user-highlight {
+            background-color: var(--highlight-color) !important;
+            color: #2d3436 !important;
+            padding: 2px 4px;
+            border-radius: 4px;
+            box-shadow: 0 0 4px rgba(136, 84, 192, 0.4);
+        }
+
+        .sentence-evidence-target {
+            background-color: #fff200 !important;
+            transition: background-color 1s ease;
+            border-radius: 4px;
+            padding: 2px 4px;
+        }
+
+        /* Glossary Table */
+        .glossary-card {
+            margin-top: 30px;
+            background: #f1f2f6;
+            border-radius: 16px;
+            padding: 16px;
+            border: 2px solid #dfe4ea;
+        }
+
+        .glossary-card h3 {
+            color: var(--pastel-purple);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .glossary-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .glossary-table th, .glossary-table td {
+            padding: 8px 10px;
+            text-align: left;
+            border-bottom: 1px solid #dfe4ea;
+        }
+
+        .glossary-table th {
+            background: var(--pastel-purple);
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .glossary-table tr:hover {
+            background: #e4e7eb;
+        }
+
+        /* Question Cards Styling */
+        .question-block {
+            background: #fff;
+            border: 2px solid #ced6e0;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 0 #ced6e0;
+            transition: transform 0.2s;
+        }
+
+        .question-block:hover {
+            transform: translateY(-2px);
+        }
+
+        .question-num {
+            font-weight: 900;
+            color: var(--pastel-purple);
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        /* Custom Options (Gamified) */
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-btn {
+            background: #f8f9fa;
+            border: 2px solid #dfe4ea;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #2f3542;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+            box-shadow: 0 3px 0 #dfe4ea;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .option-btn:hover {
+            background: #eef2f5;
+            transform: translateY(-1px);
+        }
+
+        .option-btn.selected-correct {
+            background: #d4edda !important;
+            border-color: var(--correct-green) !important;
+            color: #155724 !important;
+            box-shadow: 0 3px 0 var(--correct-green) !important;
+        }
+
+        .option-btn.selected-wrong {
+            background: #f8d7da !important;
+            border-color: var(--wrong-red) !important;
+            color: #721c24 !important;
+            box-shadow: 0 3px 0 var(--wrong-red) !important;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        /* Input / Select Controls */
+        .text-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ced6e0;
+            border-radius: 12px;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.9rem;
+            outline: none;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .text-input:focus {
+            border-color: var(--pastel-purple);
+        }
+
+        .btn-check-input {
+            margin-top: 8px;
+            background: var(--pastel-purple);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #5f27cd;
+        }
+
+        .custom-select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 12px;
+            border: 2px solid #ced6e0;
+            font-weight: 700;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        /* Detailed Explanation Card */
+        .explanation-box {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background: #f0f3ff;
+            border-radius: 12px;
+            border-left: 4px solid var(--pastel-purple);
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .exp-item {
+            margin-bottom: 6px;
+        }
+
+        .exp-label {
+            font-weight: 800;
+            color: var(--pastel-purple);
+        }
+
+        .btn-locate {
+            background: var(--pastel-yellow);
+            border: none;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.78rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 6px;
+            box-shadow: 0 2px 0 #e1b12c;
+        }
+
+        /* Results Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            position: relative;
+            animation: popIn 0.3s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .score-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: var(--bg-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px auto;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #fff;
+            box-shadow: 0 6px 15px rgba(255, 117, 140, 0.4);
+        }
+
+        .feedback-title {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--pastel-purple);
+            margin-bottom: 8px;
+        }
+
+        .feedback-desc {
+            font-size: 0.95rem;
+            color: #57606f;
+            margin-bottom: 20px;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c8d6e5;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8395a7;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Control Bar -->
+    <header class="top-bar">
+        <div class="brand-info">
+            <div>
+                <div class="brand-title">Ms Lê Hằng English</div>
+                <div class="brand-subtitle">IELTS READING MOCK TEST</div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchPassage(1)">Passage 1</button>
+            <button class="tab-btn" onclick="switchPassage(2)">Passage 2</button>
+            <button class="tab-btn" onclick="switchPassage(3)">Passage 3</button>
+        </div>
+
+        <!-- Timer Control -->
+        <div class="timer-container">
+            <span>⏱️</span>
+            <div class="timer-display" id="timerDisplay">20:00</div>
+            <button class="btn-game btn-timer" id="btnTimer" onclick="toggleTimer()">BẮT ĐẦU TÍNH GIỜ</button>
+        </div>
+
+        <!-- Progress & Submit -->
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="progress-wrapper">
+                <div class="progress-fill" id="progressFill"></div>
+                <div class="progress-text" id="progressText">0 / 40 (0%)</div>
+            </div>
+            <button class="btn-game btn-submit" onclick="submitTest()">NỘP BÀI 🚀</button>
+        </div>
+    </header>
+
+    <!-- Main Split Screen -->
+    <main class="split-container">
+        
+        <!-- Left Panel: Reading Passage -->
+        <section class="panel" id="passagePanel">
+            <div class="panel-header">
+                <span>📖 Reading Passage</span>
+                <span style="font-size: 0.8rem; font-weight: normal; color: #888;">*Bôi đen từ bất kỳ để Highlight pastel</span>
+            </div>
+            <div class="passage-content" id="passageContainer">
+                <!-- Passage content inserted dynamically by JS -->
+            </div>
+        </section>
+
+        <!-- Right Panel: Questions -->
+        <section class="panel" id="questionsPanel">
+            <div class="panel-header">
+                <span>✏️ Exercises & Questions</span>
+                <span id="questionCountBadge" style="font-size: 0.85rem; font-weight: 800; color: var(--pastel-purple);">Questions 1-13</span>
+            </div>
+            <div id="questionsContainer">
+                <!-- Questions inserted dynamically by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Score Modal -->
+    <div class="modal-overlay" id="scoreModal">
+        <div class="modal-card">
+            <h2 class="feedback-title" id="modalFeedbackTitle">THIÊN TÀI READING!</h2>
+            <div class="score-circle" id="modalScoreText">36/40</div>
+            <p id="modalIeltsBand" style="font-weight: 800; color: #ff6b6b; font-size: 1.1rem; margin-bottom: 8px;">Dự đoán IELTS Band: 8.5</p>
+            <p class="feedback-desc" id="modalFeedbackDesc">Bạn đã làm cực kỳ xuất sắc. Kỹ năng Scanning và Skimming của bạn đã tiệm cận mức hoàn hảo!</p>
+            <button class="btn-game btn-submit" style="width: 100%; justify-content: center; padding: 12px;" onclick="closeModal()">Xem Lại Đáp Án Chi Tiết 🔍</button>
+        </div>
+    </div>
+
+    <!-- Web Audio API Synthesizer Sound Effects -->
+    <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'correct') {
+                // High chime sound
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.5);
+            } else if (type === 'wrong') {
+                // Sad slide buzzer sound
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+                osc.frequency.linearRampToValueAtTime(110, audioCtx.currentTime + 0.4);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.4);
+            }
+        }
+    </script>
+
+    <!-- Data & Interactive Logic -->
+    <script>
+        // Global State Variables
+        let currentPassage = 1;
+        let timerInterval = null;
+        let timeRemaining = 20 * 60; // 20 minutes in seconds
+        let isTimerRunning = false;
+        let userAnswers = {}; // Stores questionId -> answer
+        let answeredQuestions = new Set();
+
+        // Database for Passages, Translations, Glossaries, Questions and Explanations
+        const testData = {
+            1: {
+                title: "The Whale Goes to Court",
+                subtitle: "A remarkable legal drama in the U.S.A.",
+                paragraphs: [
+                    {
+                        id: "p1_1",
+                        text: "In 1818 a whale became the subject of a controversial court case in New York City. The case involved an old law requiring those who sold fish oil to pay a fee in order to have their barrels inspected by city officials, and certified. However, an oil merchant named Samuel Judd refused to pay the inspection fee on three barrels of oil, claiming that no inspection was necessary because it was whale oil, and whales were not fish. The state disagreed, and so a date was set for a court to decide not a point of law, but the answer to a more fundamental question: is a whale a fish?",
+                        translation: "Vào năm 1818, một con cá voi đã trở thành tâm điểm của một vụ kiện gây tranh cãi ở Thành phố New York. Vụ án liên quan đến một đạo luật cũ yêu cầu những người bán dầu cá phải trả phí để các thùng dầu của họ được quan chức thành phố kiểm tra và chứng nhận. Tuy nhiên, một thương nhân bán dầu tên là Samuel Judd đã từ chối trả phí kiểm định cho ba thùng dầu, với lý do rằng không cần kiểm định vì đó là dầu cá voi, và cá voi không phải là cá. Chính quyền tiểu bang không đồng ý, và vì vậy một ngày hầu tòa đã được ấn định để tòa án quyết định không phải một điểm luật, mà là câu trả lời cho một câu hỏi cơ bản hơn: cá voi có phải là cá hay không?"
+                    },
+                    {
+                        id: "p1_2",
+                        text: "As simple as that question may appear today, the answer was far from obvious in the early nineteenth century. Indeed, the public debate in New York sparked off by the trial was sensational. At stake was nothing less than what most regarded as the order of nature. According to the commonly accepted scheme of things, if an animal was not a beast or a bird, it was a fish, regardless of whether it breathed air or suckled its young. For as long as anyone could remember, all non-human creatures had been organised according to the categories of birds, beasts and fish. For the average person the answer seemed perfectly obvious: whales swam in the sea and therefore they were fish.",
+                        translation: "Dù câu hỏi đó ngày nay có vẻ đơn giản đến đâu, câu trả lời vẫn chưa rõ ràng vào đầu thế kỷ 19. Thật vậy, cuộc tranh luận công khai ở New York do phiên tòa bùng nổ đã gây chấn động dư luận. Đặt lên bàn cân không gì khác ngoài điều mà hầu hết mọi người coi là trật tự của tự nhiên. Theo quy ước chung được chấp nhận lúc bấy giờ, nếu một động vật không phải là thú hay chim, thì nó là cá, bất kể nó hít thở không khí hay nuôi con bằng sữa mẹ. Từ rất lâu rồi, tất cả các sinh vật không phải con người đều được phân loại theo các nhóm chim, thú và cá. Đối với người bình thường, câu trả lời dường như hoàn toàn rõ ràng: cá voi bơi dưới biển và do đó chúng là cá."
+                    },
+                    {
+                        id: "p1_3",
+                        text: "Against this traditional framework stood the new Linnaean system of classification, which sought to introduce more scientific values into the classification of living things. Barely half a century old in 1818, the Linnaean system controversially classified whales as mammals because they shared two mammalian characteristics: they were warm-blooded and breathed air.",
+                        translation: "Đối lập với khuôn khổ truyền thống này là hệ thống phân loại mới của Linnaeus, hệ thống tìm cách đưa các giá trị khoa học hơn vào việc phân loại các sinh vật sống. Chỉ mới ra đời chưa đầy nửa thế kỷ vào năm 1818, hệ thống Linnaeus đã gây tranh cãi khi phân loại cá voi là động vật có vú vì chúng có hai đặc điểm của động vật có vú: chúng là động vật máu nóng và hít thở không khí."
+                    },
+                    {
+                        id: "p1_4",
+                        text: "So the trial began in December 1818. Judd’s defence lawyers chose as their star witness one of New York’s most prominent figures, the congressman Samuel Mitchill. Referred to as a ‘living encyclopaedia’ and a ‘walking library’, Mitchill was a renowned natural history lecturer at the College of Physicians and Surgeons who liked to dare his students to test his knowledge of the natural world. ‘Show me the fin, and I will name the fish,’ he boasted. Scientifically, it was an open-and-shut case, and Judd’s defence lawyers believed they only had to do one simple thing to win the trial: insist that it be decided by biology alone. Mitchill seemed fully qualified for this role.",
+                        translation: "Vì vậy, phiên tòa bắt đầu vào tháng 12 năm 1818. Các luật sư bào chữa của Judd đã chọn nhân chứng ngôi sao của họ là một trong những nhân vật nổi tiếng nhất của New York, hạ nghị sĩ Samuel Mitchill. Được gọi là 'bách khoa toàn thư sống' và 'thư viện di động', Mitchill là một giảng viên lịch sử tự nhiên nổi tiếng tại Đại học Bác sĩ và Phẫu thuật, người thích thách thức sinh viên kiểm tra kiến thức của mình về thế giới tự nhiên. 'Hãy cho tôi xem vây, tôi sẽ đọc tên con cá', ông khoe khoang. Về mặt khoa học, đó là một vụ án hoàn toàn rõ ràng, và các luật sư bào chữa của Judd tin rằng họ chỉ cần làm một việc đơn giản để thắng kiện: khăng khăng đòi quyết định dựa trên sinh học đơn thuần. Mitchill dường như hoàn toàn đủ năng lực cho vai trò này."
+                    },
+                    {
+                        id: "p1_5",
+                        text: "But this is where the case becomes interesting, and is the reason why the trial of the whale is not some dusty nineteenth-century obscurity. For rather than debate Mitchill on his area of expertise, lawyers for the New York City fish-oil inspectors chose a different tack. Lead counsel William Sampson turned the trial into a contest between scientific learning and common sense, by asking plain-spoken whalers to make their case before the jury. <span id='s_q9'>Sampson called whalers as witnesses</span> to appeal to common sense.",
+                        translation: "Nhưng đây là lúc vụ án trở nên thú vị, và là lý do tại sao phiên tòa xét xử cá voi không phải là một sự kiện mờ nhạt mốc meo của thế kỷ 19. Thay vì tranh luận với Mitchill về lĩnh vực chuyên môn của ông, các luật sư đại diện cho các thanh tra dầu cá Thành phố New York đã chọn một hướng đi khác. Luật sư trưởng William Sampson đã biến phiên tòa thành cuộc tranh tài giữa tri thức khoa học và nhận thức thông thường (lẽ thường), bằng cách yêu cầu những thợ săn cá voi nói năng bộc bạch làm chứng trước bồi thẩm đoàn."
+                    },
+                    {
+                        id: "p1_6",
+                        text: "The crux of Sampson’s case was the trial’s implication with regard to humans, should Judd be found not guilty. Sampson told jury members that if they accepted Mitchill’s testimony on whales, they were obliged to accept a lower place for their own kind in the natural order. As a result, Mitchill’s day in court did not go smoothly, not least because he was forced to acknowledge serious disputes among his peers regarding exactly how to classify biological organisms. Sampson then took aim at Mitchill himself and what he represented: privileged aristocrats from the scientific community who had lost touch with reality. The smooth-talking Sampson then claimed Mitchill’s beliefs had their origin in Europe – something he rightly judged would infuriate the citizens of always-independent New York. This revolutionary new thinking, Sampson argued, was something that honest working New Yorkers could do without. No longer was this a case about barrels of oil, but the proper place of scientific knowledge in the U.S.A.",
+                        translation: "Mấu chốt trong lập luận của Sampson là hệ lụy của phiên tòa đối với con người nếu Judd được tuyên trắng án. Sampson nói với các bồi thẩm viên rằng nếu họ chấp nhận lời khai của Mitchill về cá voi, họ buộc phải chấp nhận một vị trí thấp hơn cho chính loài người của mình trong trật tự tự nhiên. Kết quả là, ngày ra tòa của Mitchill đã diễn ra không hề suôn sẻ, đặc biệt vì ông bị buộc phải thừa nhận những tranh cãi gay gắt giữa các đồng nghiệp về cách phân loại các sinh vật sinh học. Sampson sau đó nhắm mục tiêu vào chính Mitchill và những gì ông đại diện: những quý tộc đặc quyền từ cộng đồng khoa học đã mất liên hệ với thực tế. Sampson khéo ăn nói sau đó tuyên bố niềm tin của Mitchill có nguồn gốc từ Châu Âu - điều mà ông đánh giá đúng là sẽ làm tức giận người dân New York vốn luôn độc lập. Sampson tranh luận rằng tư duy mới mang tính cách mạng này là điều mà những người lao động New York trung thực có thể sống tốt mà không cần đến. Đây không còn là vụ án về những thùng dầu nữa, mà là về vị trí thích hợp của kiến thức khoa học ở Hoa Kỳ."
+                    },
+                    {
+                        id: "p1_7",
+                        text: "Ultimately, what won the case for Samuel Judd were not Mitchill’s scientific arguments, but testimony from a different sphere altogether. In New York’s markets, the merchants implicitly understood that whale oil and fish oil were not the same: whale oil could be used as a fuel for lamps because it could be burned without giving off smoke; fish oil, on the other hand, was nasty, impure stuff used primarily in tanning leather. In the end it was this testimony that led to Judd’s victory.",
+                        translation: "Cuối cùng, điều giúp Samuel Judd thắng kiện không phải là các luận điểm khoa học của Mitchill, mà là lời khai từ một lĩnh vực hoàn toàn khác. Tại các chợ ở New York, các thương nhân ngầm hiểu rằng dầu cá voi và dầu cá không giống nhau: dầu cá voi có thể được dùng làm nhiên liệu cho đèn vì nó có thể cháy mà không nhả khói; mặt khác, dầu cá là thứ bẩn thỉu, không tinh khiết chủ yếu được dùng để thuộc da. Cuối cùng, chính lời khai này đã dẫn đến chiến thắng của Judd."
+                    },
+                    {
+                        id: "p1_8",
+                        text: "The trial of the whale still has relevance today, when the court of public opinion remains easily swayed by sceptics. The 1818 trial was really about this question: who gets to decide on the place of the natural world in the human world – scientific experts or public opinion? Whether the issue today is the effects of human activity on the climate of this planet, or one of many other contemporary topics, the legacy of Judd’s case continues to be of relevance.",
+                        translation: "Phiên tòa xét xử cá voi vẫn còn giá trị thực tiễn ngày nay, khi tòa án dư luận vẫn dễ bị dao động bởi những người hoài nghi. Phiên tòa năm 1818 thực sự xoay quanh câu hỏi này: ai sẽ là người quyết định vị trí của thế giới tự nhiên trong thế giới loài người – các chuyên gia khoa học hay dư luận công chúng? Cho dù vấn đề ngày nay là tác động của hoạt động con người đến khí hậu hành tinh này, hay một trong nhiều chủ đề đương đại khác, di sản của vụ án Judd vẫn tiếp tục có ý nghĩa thực tiễn."
+                    }
+                ],
+                glossary: [
+                    { word: "Controversial", type: "adj", vn: "Gây tranh cãi", synonym: "Debated, disputed" },
+                    { word: "Merchant", type: "n", vn: "Thương nhân", synonym: "Trader, seller" },
+                    { word: "Inspection", type: "n", vn: "Sự kiểm định, thanh tra", synonym: "Examination, check" },
+                    { word: "Fundamental", type: "adj", vn: "Cơ bản, cốt lõi", synonym: "Basic, essential" },
+                    { word: "Sensational", type: "adj", vn: "Gây chấn động dư luận", synonym: "Exciting, shocking" },
+                    { word: "Framework", type: "n", vn: "Khuôn khổ, hệ thống", synonym: "Structure, system" },
+                    { word: "Mammal", type: "n", vn: "Động vật có vú", synonym: "Warm-blooded animal" },
+                    { word: "Prominent", type: "adj", vn: "Nổi tiếng, xuất chúng", synonym: "Famous, distinguished" },
+                    { word: "Lecturer", type: "n", vn: "Giảng viên", synonym: "Teacher, instructor" },
+                    { word: "Expertise", type: "n", vn: "Chuyên môn", synonym: "Skill, knowledge" },
+                    { word: "Whaler", type: "n", vn: "Thợ săn cá voi", synonym: "Whale hunter" },
+                    { word: "Testimony", type: "n", vn: "Lời khai, bằng chứng", synonym: "Evidence, statement" },
+                    { word: "Aristocrats", type: "n", vn: "Giới quý tộc", synonym: "Nobility, upper class" },
+                    { word: "Infuriate", type: "v", vn: "Làm tức giận", synonym: "Enrage, madden" },
+                    { word: "Relevance", type: "n", vn: "Giá trị thực tiễn, tính liên quan", synonym: "Importance, applicability" },
+                    { word: "Sceptic", type: "n", vn: "Người hoài nghi", synonym: "Doubter, cynic" },
+                    { word: "Climate", type: "n", vn: "Khí hậu", synonym: "Weather conditions" }
+                ],
+                questions: [
+                    {
+                        id: 1,
+                        type: "tfng",
+                        text: "1. An inspection fee on fish oil was introduced in New York in 1818.",
+                        answer: "FALSE",
+                        options: ["TRUE", "FALSE", "NOT GIVEN"],
+                        sentenceId: "p1_1",
+                        expAnswer: "FALSE",
+                        expContext: "The case involved an old law requiring those who sold fish oil to pay a fee... In 1818 Judd refused to pay.",
+                        expTrans: "Vụ án liên quan đến một ĐẠO LUẬT CŨ yêu cầu nộp phí. Năm 1818 chỉ là thời điểm Judd từ chối nộp phí chứ không phải năm đạo luật này được ban hành.",
+                        synonyms: "introduced in 1818 ➔ old law already existed before 1818"
+                    },
+                    {
+                        id: 2,
+                        type: "tfng",
+                        text: "2. Samuel Judd argued that the inspection fee should exclude whale oil.",
+                        answer: "TRUE",
+                        options: ["TRUE", "FALSE", "NOT GIVEN"],
+                        sentenceId: "p1_1",
+                        expAnswer: "TRUE",
+                        expContext: "Judd refused to pay... claiming that no inspection was necessary because it was whale oil, and whales were not fish.",
+                        expTrans: "Judd lập luận rằng không cần kiểm định dầu cá voi vì cá voi không phải là cá, tức là dầu cá voi nên được loại trừ khỏi phí kiểm định dầu cá.",
+                        synonyms: "exclude whale oil ➔ no inspection was necessary because it was whale oil"
+                    },
+                    {
+                        id: 3,
+                        type: "tfng",
+                        text: "3. Judd had been in trouble with city officials before the inspection fee disagreement.",
+                        answer: "NOT GIVEN",
+                        options: ["TRUE", "FALSE", "NOT GIVEN"],
+                        sentenceId: "p1_1",
+                        expAnswer: "NOT GIVEN",
+                        expContext: "In 1818 a whale became the subject... Samuel Judd refused to pay...",
+                        expTrans: "Bài đọc không đề cập đến việc Judd có từng gặp rắc rối với quan chức thành phố trước vụ tranh chấp này hay chưa.",
+                        synonyms: "before the disagreement ➔ Not mentioned in text"
+                    },
+                    {
+                        id: 4,
+                        type: "tfng",
+                        text: "4. Many New Yorkers were interested in the court case at the time.",
+                        answer: "TRUE",
+                        options: ["TRUE", "FALSE", "NOT GIVEN"],
+                        sentenceId: "p1_2",
+                        expAnswer: "TRUE",
+                        expContext: "Indeed, the public debate in New York sparked off by the trial was sensational.",
+                        expTrans: "Cuộc tranh luận công khai ở New York do phiên tòa bùng nổ đã gây chấn động dư luận, chứng tỏ nhiều người dân rất quan tâm.",
+                        synonyms: "Many New Yorkers interested ➔ public debate was sensational"
+                    },
+                    {
+                        id: 5,
+                        type: "tfng",
+                        text: "5. Traditionally, non-human creatures had been classified in one of three groups.",
+                        answer: "TRUE",
+                        options: ["TRUE", "FALSE", "NOT GIVEN"],
+                        sentenceId: "p1_2",
+                        expAnswer: "TRUE",
+                        expContext: "all non-human creatures had been organised according to the categories of birds, beasts and fish.",
+                        expTrans: "Theo truyền thống, tất cả sinh vật không phải con người được phân vào một trong 3 nhóm: chim, thú, cá.",
+                        synonyms: "three groups ➔ categories of birds, beasts and fish"
+                    },
+                    {
+                        id: 6,
+                        type: "tfng",
+                        text: "6. Generally speaking, ordinary people thought fish were the lowest form of life.",
+                        answer: "NOT GIVEN",
+                        options: ["TRUE", "FALSE", "NOT GIVEN"],
+                        sentenceId: "p1_2",
+                        expAnswer: "NOT GIVEN",
+                        expContext: "For the average person the answer seemed perfectly obvious: whales swam in the sea and therefore they were fish.",
+                        expTrans: "Bài đọc chỉ nói người bình thường nghĩ cá voi là cá vì chúng bơi dưới biển, không hề nhắc đến việc họ nghĩ cá là 'dạng sống thấp nhất'.",
+                        synonyms: "lowest form of life ➔ Not mentioned in text"
+                    },
+                    {
+                        id: 7,
+                        type: "tfng",
+                        text: "7. Whales were excluded from the Linnaean system in 1818.",
+                        answer: "FALSE",
+                        options: ["TRUE", "FALSE", "NOT GIVEN"],
+                        sentenceId: "p1_3",
+                        expAnswer: "FALSE",
+                        expContext: "the Linnaean system controversially classified whales as mammals...",
+                        expTrans: "Hệ thống Linnaeus đã phân loại cá voi là động vật có vú (mammals), tức là cá voi CÓ nằm trong hệ thống phân loại này chứ không bị loại trừ.",
+                        synonyms: "excluded from ➔ classified whales as mammals"
+                    },
+                    {
+                        id: 8,
+                        type: "fill",
+                        text: "8. Samuel Mitchill worked as a congressman and a _________.",
+                        answer: "lecturer",
+                        sentenceId: "p1_4",
+                        expAnswer: "lecturer",
+                        expContext: "...the congressman Samuel Mitchill... was a renowned natural history lecturer at the College of Physicians and Surgeons...",
+                        expTrans: "Hạ nghị sĩ Samuel Mitchill là một giảng viên (lecturer) lịch sử tự nhiên nổi tiếng.",
+                        synonyms: "worked as a ➔ was a renowned natural history lecturer"
+                    },
+                    {
+                        id: 9,
+                        type: "fill",
+                        text: "9. William Sampson called _________ as witnesses in order to appeal to the common sense of the jury.",
+                        answer: "whalers",
+                        sentenceId: "p1_5",
+                        expAnswer: "whalers",
+                        expContext: "...by asking plain-spoken whalers to make their case before the jury.",
+                        expTrans: "William Sampson đã mời những thợ săn cá voi (whalers) ra làm chứng trước bồi thẩm đoàn.",
+                        synonyms: "appeal to common sense ➔ plain-spoken whalers make their case"
+                    },
+                    {
+                        id: 10,
+                        type: "fill",
+                        text: "10. New Yorkers disliked Mitchill because his ideas came from _________.",
+                        answer: "Europe",
+                        sentenceId: "p1_6",
+                        expAnswer: "Europe",
+                        expContext: "...claimed Mitchill’s beliefs had their origin in Europe – something he rightly judged would infuriate the citizens...",
+                        expTrans: "Người dân New York ghét quan điểm của Mitchill vì tư tưởng của ông có nguồn gốc từ Châu Âu (Europe).",
+                        synonyms: "ideas came from ➔ beliefs had their origin in Europe"
+                    },
+                    {
+                        id: 11,
+                        type: "fill",
+                        text: "11. In the end it was statements from local _________, not Mitchill’s testimony, which helped Judd win.",
+                        answer: "merchants",
+                        sentenceId: "p1_7",
+                        expAnswer: "merchants",
+                        expContext: "In New York’s markets, the merchants implicitly understood that whale oil and fish oil were not the same...",
+                        expTrans: "Cuối cùng, chính phát biểu/lời khai của các thương nhân (merchants) địa phương tại các chợ đã giúp Judd chiến thắng.",
+                        synonyms: "statements from local ➔ testimony from merchants in New York's markets"
+                    },
+                    {
+                        id: 12,
+                        type: "fill",
+                        text: "12. Whale oil made a good _________ because it was clean.",
+                        answer: "fuel",
+                        sentenceId: "p1_7",
+                        expAnswer: "fuel",
+                        expContext: "...whale oil could be used as a fuel for lamps because it could be burned without giving off smoke...",
+                        expTrans: "Dầu cá voi làm nhiên liệu (fuel) rất tốt cho đèn vì cháy không nhả khói (sạch).",
+                        synonyms: "made a good ➔ could be used as a fuel for lamps"
+                    },
+                    {
+                        id: 13,
+                        type: "fill",
+                        text: "13. Judd’s case is relevant today, e.g. in the debate about Earth’s _________.",
+                        answer: "climate",
+                        sentenceId: "p1_8",
+                        expAnswer: "climate",
+                        expContext: "Whether the issue today is the effects of human activity on the climate of this planet...",
+                        expTrans: "Vụ án Judd vẫn còn liên quan tới ngày nay, ví dụ trong cuộc tranh luận về khí hậu (climate) trái đất.",
+                        synonyms: "Earth's ➔ climate of this planet"
+                    }
+                ]
+            },
+            2: {
+                title: "Herbal Medicine",
+                subtitle: "The evolution and debate of botanical remedies in New Zealand",
+                paragraphs: [
+                    {
+                        id: "p2_A",
+                        text: "A. There is an age-old practice of harvesting plants and herbs in their natural environment for use as medicines. And today there is huge potential for New Zealand to develop a herb industry based on the excellent growing conditions and expertise there, according to Phil Rasmussen, a pharmacist and medical herbalist. Take arnica for example, a popular pharmaceutical herb used to treat bruises and joint problems. Traditionally collected by Romanian communities in Europe, it is now in high demand worldwide as interest develops in the capabilities of the small alpine plant. A 2008 report for the Plant and Food Research organization concluded that New Zealand has a good opportunity to cultivate arnica flowers and roots for the international markets. However, the initiative was stopped in its tracks when the government abruptly halted funding for the research programmer. It was an unjustified move, according to agronomist Malcolm Douglas, based on a number of inaccurate views about weed invasion.",
+                        translation: "A. Có một tập tục lâu đời là thu hoạch thực vật và thảo mộc trong môi trường tự nhiên của chúng để làm thuốc. Và ngày nay có tiềm năng to lớn cho New Zealand phát triển ngành công nghiệp thảo dược dựa trên điều kiện trồng trọt tuyệt vời và chuyên môn ở đó, theo Phil Rasmussen, một dược sĩ và chuyên gia thảo dược y khoa. Lấy cây arnica làm ví dụ, một loại thảo dược dược phẩm phổ biến được sử dụng để điều trị vết bầm tím và các vấn đề về khớp. Theo truyền thống được thu thập bởi các cộng đồng người Romania ở Châu Âu, hiện nay nó đang có nhu cầu cao trên toàn thế giới khi mối quan tâm phát triển về khả năng của loài cây nhỏ trên núi cao này. Một báo cáo năm 2008 cho tổ chức Nghiên cứu Thực vật và Thực phẩm kết luận rằng New Zealand có cơ hội tốt để trồng hoa và rễ cây arnica cho thị trường quốc tế. Tuy nhiên, sáng kiến này đã bị dừng lại ngay lập tức khi chính phủ đột ngột ngừng tài trợ cho chương trình nghiên cứu. Đó là một động thái không thỏa đáng, theo nhà nông học Malcolm Douglas, dựa trên một số quan điểm không chính xác về sự xâm nhập của cỏ dại."
+                    },
+                    {
+                        id: "p2_B",
+                        text: "B. The history of herbal medicines in New Zealand has long featured disagreements of this sort. For the early Maori people the original inhabitants of New Zealand the forest was well stocked with edible plants that were an obvious source of nutrition, but that were taken for the relief of pain as well. While the earliest European doctors in New Zealand relied on imported dried herbs, many were keen to include native plants in their practices: in his book published in 1891, herbalist James Neil described manuka and koromiko as among New Zealand's most valuable herbs. Despite its popularity among some, however, herbalism continued to have its detractor. In 1907 Neil, president of the then very young New Zealand Association of Medical Herbalists (NZAMH), petitioned parliament for legal status for herbalists, but he was unsuccessful. The Evening Post newspaper perhaps summed up the opposing position by claiming that herbalism 'is obsolete'.",
+                        translation: "B. Lịch sử y học thảo dược ở New Zealand từ lâu đã chứng kiến những bất đồng thuộc loại này. Đối với người Maori thời kỳ đầu - những cư dân gốc của New Zealand - khu rừng chứa đầy các loài cây ăn được, là nguồn dinh dưỡng rõ ràng nhưng cũng được sử dụng để giảm đau. Trong khi các bác sĩ Châu Âu đầu tiên ở New Zealand dựa vào thảo dược khô nhập khẩu, nhiều người rất muốn đưa các loài cây bản địa vào thực hành của họ: trong cuốn sách xuất bản năm 1891, nhà thảo dược James Neil đã mô tả manuka và koromiko là một trong những loại thảo dược giá trị nhất của New Zealand. Tuy nhiên, mặc dù phổ biến đối với một số người, thảo dược học vẫn tiếp tục có những người phản đối. Năm 1907, Neil, chủ tịch của Hiệp hội Nhà thảo dược Y khoa New Zealand (NZAMH) còn rất trẻ lúc đó, đã kiến nghị quốc hội trao địa vị pháp lý cho các nhà thảo dược, nhưng ông không thành công. Tờ báo Evening Post có lẽ đã tóm tắt quan điểm đối lập bằng cách tuyên bố rằng thảo dược học 'đã lỗi thời'."
+                    },
+                    {
+                        id: "p2_C",
+                        text: "C. In fact, traditional Maori medicine faced a more determined challenge. In 1908 the government passed a controversial law that had the effect of restricting traditional herbal practice, or pushing it underground. Then for a brief period in the mid-20th century, herbal medicine was largely ignored, shunned by the majority of the medical profession, and absent from medical school curricula. But a centuries-old tradition was not going to disappear so easily, and in the 1980s the NZAMH was revived, and it became possible to complete a course in herbal medicine at several polytechnics around the country. However, the problem remained of how to connect the culture of plant-based medicine with conventional scientific thinking in order to promote herbal use within the general population. For many years, the limited evidence there was that herbal medicines worked was undermined by lack of interest among general practitioners and within the scientific community.",
+                        translation: "C. Trên thực tế, y học truyền thống của người Maori đã phải đối mặt với một thách thức quyết liệt hơn. Năm 1908, chính phủ đã thông qua một đạo luật gây tranh cãi có tác dụng hạn chế thực hành thảo dược truyền thống, hoặc đẩy nó vào hoạt động bí mật. Sau đó, trong một thời gian ngắn vào giữa thế kỷ 20, y học thảo dược phần lớn bị ngó lơ, bị đa số giới y khoa xa lánh và vắng bóng trong chương trình giảng dạy của các trường y. Nhưng một truyền thống hàng thế kỷ không dễ dàng biến mất như vậy, và vào những năm 1980, NZAMH đã được hồi sinh, và người ta có thể hoàn thành một khóa học về y học thảo dược tại một số trường bách khoa trên khắp cả nước. Tuy nhiên, vấn đề vẫn là làm thế nào để kết nối văn hóa y học dựa trên thực vật với tư duy khoa học thông thường nhằm thúc đẩy việc sử dụng thảo dược trong toàn dân."
+                    },
+                    {
+                        id: "p2_D",
+                        text: "D. Today, the ideas of herbalists in the 1980s-eat a varied diet, include lots of fresh fruit and vegetables, recognise stress - are completely accepted by the medical establishment and widely practiced in society as a whole. Natural health products are big sellers in pharmacies, and global pharmaceutical companies are buying up natural supplement brands or developing their own.",
+                        translation: "D. Ngày nay, những ý tưởng của các nhà thảo dược vào những năm 1980 - ăn uống đa dạng, bao gồm nhiều trái cây và rau củ tươi, nhận biết căng thẳng - hoàn toàn được giới y khoa chấp nhận và thực hành rộng rãi trong toàn xã hội. Các sản phẩm sức khỏe tự nhiên là những mặt hàng bán chạy tại các nhà thuốc, và các công ty dược phẩm toàn cầu đang mua lại các thương hiệu thực phẩm bổ sung tự nhiên hoặc tự phát triển thương hiệu riêng của họ."
+                    },
+                    {
+                        id: "p2_E",
+                        text: "E. What’s more, according to Rasmussen, robust clinical trials show that herbal medicine is generally safe-safer than most drugs. ‘It doesn’t do everything,’he says, ‘but there’s a lot it does do, particularly in terms of preventative health care.’One significant issue for today’s export-oriented herbal medicine producers is the question of how to guarantee standards for consumers in different countries. In other words, there is the need for some form of globally recognised system of documentation. Rasmussen's range of extracts are produced under the Good Manufacturing Practice (GMP) scheme, which is respected around the world. So too is the range produced by Sandra Clair, who says that such assurance is expensive but necessary if you want to export herbal remedies to the rest of the world. Moves to launch a joint Australia-New Zealand agency to regulate herbal remedies under a single, streamlined licensing process have recently been revived, after being abandoned in 2007 through lack of support in parliament.",
+                        translation: "E. Hơn nữa, theo Rasmussen, các thử nghiệm lâm sàng mạnh mẽ cho thấy y học thảo dược nhìn chung an toàn - an toàn hơn hầu hết các loại thuốc Tây. 'Nó không làm được mọi thứ,' ông nói, 'nhưng có rất nhiều điều nó làm được, đặc biệt là về chăm sóc sức khỏe phòng ngừa.' Một vấn đề quan trọng đối với các nhà sản xuất thuốc thảo dược hướng tới xuất khẩu ngày nay là câu hỏi làm thế nào để đảm bảo tiêu chuẩn cho người tiêu dùng ở các quốc gia khác nhau. Nói cách khác, cần có một hình thức hệ thống hồ sơ tài liệu được công nhận toàn cầu. Dòng sản phẩm chiết xuất của Rasmussen được sản xuất theo chương trình Thực hành Sản xuất Tốt (GMP), vốn được tôn trọng trên toàn thế giới. Dòng sản phẩm do Sandra Clair sản xuất cũng vậy, bà nói rằng sự đảm bảo như vậy rất đắt đỏ nhưng cần thiết nếu bạn muốn xuất khẩu các liệu pháp thảo dược ra thế giới."
+                    },
+                    {
+                        id: "p2_F",
+                        text: "F. There are those in the industry who support further regulation still. According to Rasmussen, some herbs should require a prescription from a suitably qualified medical herbalist or doctor. For example, consumers shouldn't be able to go to their local supermarket and buy St John's Wort, according to Rasmussen, because it can interact in harmful ways with at least ten pharmaceutical drugs. Isla Burgess, who is part of the International Research Group for the Conservation of Medicinal Plants, agrees that tighter regulation is necessary,' but for a different reason. 'More than 400,000 tones of medicinal and aromatic plants are trade in the world each year,' says Burgess. 'The great majority of these are harvested from the wild, so they each have an impact on their local ecosystem.' She gives the example of elm trees in the USA ringbarked and stripped for the growing market for a product called 'slippery elm': this endangered tree should be protected. But others argue that more regulation would be prohibitively expensive for all but the largest manufacturers - a change, cautions Clair, that would probably put some local companies out of business. So, for the time being at least, it seems that the topic of herbal medicines will continue to provoke debate.",
+                        translation: "F. Có những người trong ngành vẫn ủng hộ việc quản lý chặt chẽ hơn nữa. Theo Rasmussen, một số loại thảo dược cần phải có đơn thuốc từ bác sĩ hoặc nhà thảo dược y khoa có trình độ phù hợp. Ví dụ, người tiêu dùng không nên đến siêu thị địa phương và mua Cây Ban Âu (St John's Wort), vì nó có thể tương tác gây hại với ít nhất mười loại thuốc Tây. Isla Burgess đồng ý rằng cần có sự quản lý chặt chẽ hơn, nhưng vì một lý do khác: thu hoạch tự do làm ảnh hưởng đến hệ sinh thái địa phương. Tuy nhiên, những người khác tranh luận rằng việc gia tăng quản lý sẽ đắt đỏ tới mức cấm đoán đối với tất cả trừ các nhà sản xuất lớn nhất - một sự thay đổi mà Clair cảnh báo rằng có thể sẽ khiến một số công ty địa phương phá sản."
+                    }
+                ],
+                glossary: [
+                    { word: "Harvesting", type: "n", vn: "Sự thu hoạch", synonym: "Gathering, collecting" },
+                    { word: "Pharmaceutical", type: "adj", vn: "Thuộc về dược phẩm", synonym: "Medical, drug-related" },
+                    { word: "Agronomist", type: "n", vn: "Nhà nông học", synonym: "Agricultural expert" },
+                    { word: "Unjustified", type: "adj", vn: "Không thỏa đáng, vô lý", synonym: "Unwarranted, baseless" },
+                    { word: "Inhabitant", type: "n", vn: "Cư dân", synonym: "Resident, dweller" },
+                    { word: "Obsolete", type: "adj", vn: "Lỗi thời", synonym: "Outdated, old-fashioned" },
+                    { word: "Shunned", type: "v", vn: "Xa lánh, tránh né", synonym: "Avoided, rejected" },
+                    { word: "Polytechnics", type: "n", vn: "Trường bách khoa", synonym: "Technical college" },
+                    { word: "Conventional", type: "adj", vn: "Thông thường, truyền thống", synonym: "Traditional, standard" },
+                    { word: "Undermined", type: "v", vn: "Làm suy yếu", synonym: "Weakened, impaired" },
+                    { word: "Clinical trial", type: "n", vn: "Thử nghiệm lâm sàng", synonym: "Medical test" },
+                    { word: "Extract", type: "n", vn: "Chiết xuất", synonym: "Concentrate, essence" },
+                    { word: "Prescription", type: "n", vn: "Đơn thuốc", synonym: "Doctor's instruction" },
+                    { word: "Endangered", type: "adj", vn: "Có nguy cơ tuyệt chủng", synonym: "At risk, threatened" },
+                    { word: "Prohibitively", type: "adv", vn: "Cực kỳ đắt đỏ (cấm đoán)", synonym: "Extremely expensively" }
+                ],
+                questions: [
+                    {
+                        id: 14,
+                        type: "mc",
+                        text: "14. A reference to the interest shown by large corporations in herbal remedies",
+                        answer: "D",
+                        options: ["Paragraph A", "Paragraph B", "Paragraph C", "Paragraph D", "Paragraph E", "Paragraph F"],
+                        sentenceId: "p2_D",
+                        expAnswer: "D",
+                        expContext: "...global pharmaceutical companies are buying up natural supplement brands or developing their own.",
+                        expTrans: "Đoạn D nhắc tới việc các tập đoàn dược phẩm toàn cầu lớn đang mua lại các thương hiệu thực phẩm bổ sung tự nhiên.",
+                        synonyms: "large corporations ➔ global pharmaceutical companies"
+                    },
+                    {
+                        id: 15,
+                        type: "mc",
+                        text: "15. Examples of the uses of one particular herbal medicine",
+                        answer: "A",
+                        options: ["Paragraph A", "Paragraph B", "Paragraph C", "Paragraph D", "Paragraph E", "Paragraph F"],
+                        sentenceId: "p2_A",
+                        expAnswer: "A",
+                        expContext: "Take arnica for example, a popular pharmaceutical herb used to treat bruises and joint problems.",
+                        expTrans: "Đoạn A đưa ra ví dụ về cây arnica dùng để chữa vết bầm tím và khớp.",
+                        synonyms: "uses of one particular herbal medicine ➔ arnica used to treat bruises and joint problems"
+                    },
+                    {
+                        id: 16,
+                        type: "mc",
+                        text: "16. A warning that small companies cannot afford stricter controls of the herbal medicine industry",
+                        answer: "F",
+                        options: ["Paragraph A", "Paragraph B", "Paragraph C", "Paragraph D", "Paragraph E", "Paragraph F"],
+                        sentenceId: "p2_F",
+                        expAnswer: "F",
+                        expContext: "...a change, cautions Clair, that would probably put some local companies out of business.",
+                        expTrans: "Đoạn F đưa ra cảnh báo của Clair rằng việc quản lý nghiêm ngặt sẽ khiến một số công ty địa phương nhỏ phá sản.",
+                        synonyms: "small companies cannot afford ➔ put some local companies out of business"
+                    },
+                    {
+                        id: 17,
+                        type: "mc",
+                        text: "17. A statement by one expert about the effectiveness and limitations of herbal medicines",
+                        answer: "E",
+                        options: ["Paragraph A", "Paragraph B", "Paragraph C", "Paragraph D", "Paragraph E", "Paragraph F"],
+                        sentenceId: "p2_E",
+                        expAnswer: "E",
+                        expContext: "‘It doesn’t do everything,’ he says, ‘but there’s a lot it does do...’",
+                        expTrans: "Đoạn E ghi lại phát biểu của Rasmussen về hiệu quả và giới hạn của thảo dược ('Nó không làm được mọi thứ, nhưng có rất nhiều điều nó làm được').",
+                        synonyms: "effectiveness and limitations ➔ It doesn't do everything, but there's a lot it does do"
+                    },
+                    {
+                        id: 18,
+                        type: "fill",
+                        text: "18. Originally, the Maori people consumed plants to help deal with _________ and also as food.",
+                        answer: "pain",
+                        sentenceId: "p2_B",
+                        expAnswer: "pain",
+                        expContext: "...plants that were an obvious source of nutrition, but that were taken for the relief of pain as well.",
+                        expTrans: "Người Maori ăn các loài cây để lấy dinh dưỡng và dùng để giảm đau (pain).",
+                        synonyms: "deal with ➔ relief of pain"
+                    },
+                    {
+                        id: 19,
+                        type: "fill",
+                        text: "19. When Europeans settled in the country, a _________ by James Neil showed that some of them also recognized the medicinal value of native plants.",
+                        answer: "book",
+                        sentenceId: "p2_B",
+                        expAnswer: "book",
+                        expContext: "...in his book published in 1891, herbalist James Neil described manuka and koromiko...",
+                        expTrans: "Một cuốn sách (book) xuất bản năm 1891 của James Neil cho thấy ông đã nhận ra giá trị y học của cây bản địa.",
+                        synonyms: "showed that ➔ in his book published in 1891, described..."
+                    },
+                    {
+                        id: 20,
+                        type: "fill",
+                        text: "20. The following year, the use of herbal medicines was made more difficult because of a new _________.",
+                        answer: "law",
+                        sentenceId: "p2_C",
+                        expAnswer: "law",
+                        expContext: "In 1908 the government passed a controversial law that had the effect of restricting traditional herbal practice...",
+                        expTrans: "Năm 1908, chính phủ thông qua một đạo luật (law) mới làm hạn chế việc dùng thảo dược.",
+                        synonyms: "made more difficult ➔ restricting traditional herbal practice"
+                    },
+                    {
+                        id: 21,
+                        type: "fill",
+                        text: "21. Then, in the 1980s, a number of institutions started offering a _________ in the subject...",
+                        answer: "course",
+                        sentenceId: "p2_C",
+                        expAnswer: "course",
+                        expContext: "...it became possible to complete a course in herbal medicine at several polytechnics...",
+                        expTrans: "Vào những năm 1980, nhiều trường bách khoa bắt đầu cung cấp khóa học (course) về thảo dược.",
+                        synonyms: "offering a ➔ complete a course in herbal medicine"
+                    },
+                    {
+                        id: 22,
+                        type: "mc",
+                        text: "22. There ought to be restrictions on where you can buy some herbal medicines.",
+                        answer: "A",
+                        options: ["A - Phil Rasmussen", "B - Malcolm Douglas", "C - Sandra Clair", "D - Isla Burgess"],
+                        sentenceId: "p2_F",
+                        expAnswer: "A",
+                        expContext: "consumers shouldn't be able to go to their local supermarket and buy St John's Wort, according to Rasmussen...",
+                        expTrans: "Phil Rasmussen (A) cho rằng nên hạn chế nơi bán thảo dược (không nên mua tự do ở siêu thị).",
+                        synonyms: "restrictions on where to buy ➔ shouldn't be able to buy at local supermarket"
+                    },
+                    {
+                        id: 23,
+                        type: "mc",
+                        text: "23. The authorities stopped supporting one project without a good reason.",
+                        answer: "B",
+                        options: ["A - Phil Rasmussen", "B - Malcolm Douglas", "C - Sandra Clair", "D - Isla Burgess"],
+                        sentenceId: "p2_A",
+                        expAnswer: "B",
+                        expContext: "It was an unjustified move, according to agronomist Malcolm Douglas...",
+                        expTrans: "Malcolm Douglas (B) cho rằng việc chính phủ ngừng tài trợ dự án nghiên cứu arnica là vô lý/không thỏa đáng.",
+                        synonyms: "without a good reason ➔ unjustified move"
+                    },
+                    {
+                        id: 24,
+                        type: "mc",
+                        text: "24. The herbal medicine industry has an effect on the environment where some plant-based medicines are found.",
+                        answer: "D",
+                        options: ["A - Phil Rasmussen", "B - Malcolm Douglas", "C - Sandra Clair", "D - Isla Burgess"],
+                        sentenceId: "p2_F",
+                        expAnswer: "D",
+                        expContext: "...they each have an impact on their local ecosystem, says Burgess.",
+                        expTrans: "Isla Burgess (D) nhấn mạnh việc thu hoạch thảo dược ảnh hưởng tới hệ sinh thái môi trường.",
+                        synonyms: "effect on the environment ➔ impact on local ecosystem"
+                    },
+                    {
+                        id: 25,
+                        type: "mc",
+                        text: "25. New Zealand has the human resources and natural environment to grow herbs commercially.",
+                        answer: "A",
+                        options: ["A - Phil Rasmussen", "B - Malcolm Douglas", "C - Sandra Clair", "D - Isla Burgess"],
+                        sentenceId: "p2_A",
+                        expAnswer: "A",
+                        expContext: "...huge potential for New Zealand to develop a herb industry based on the excellent growing conditions and expertise there, according to Phil Rasmussen...",
+                        expTrans: "Phil Rasmussen (A) nhận định NZ có điều kiện tự nhiên và chuyên môn (con người) tốt để phát triển thương mại.",
+                        synonyms: "human resources & environment ➔ growing conditions and expertise"
+                    },
+                    {
+                        id: 26,
+                        type: "mc",
+                        text: "26. It is essential for herbal medicines to have international certification, despite the cost.",
+                        answer: "C",
+                        options: ["A - Phil Rasmussen", "B - Malcolm Douglas", "C - Sandra Clair", "D - Isla Burgess"],
+                        sentenceId: "p2_E",
+                        expAnswer: "C",
+                        expContext: "...Sandra Clair, who says that such assurance is expensive but necessary if you want to export...",
+                        expTrans: "Sandra Clair (C) khẳng định việc chứng nhận quốc tế dù đắt đỏ nhưng là cần thiết.",
+                        synonyms: "despite the cost ➔ expensive but necessary"
+                    }
+                ]
+            },
+            3: {
+                title: "Science in the kitchen",
+                subtitle: "Chefs are bringing a new standard of experimentation and precision to their cooking.",
+                paragraphs: [
+                    {
+                        id: "p3_1",
+                        text: "There is a recent movement in the world of food, in which chefs are collaborating with scientists to teach themselves the chemistry and physics of cuisine. Even academics are getting excited about the results. Colin Osborne of the Royal Society of Chemistry in London is enthusiastic: “Chefs are using unusual methods to produce exciting dishes that would be impossible without modern science,” he says. You may wonder what’s wrong with long established culinary traditions. The fact is, many culturally ingrained cooking methods are less than perfect. Osborne gives the example of the common belief that frying meat seals in moisture, while researchers who weighed the meat actually found that moisture is lost in the process. Another example is the age old technique of adding salt when boiling vegetables to raise the water’s boiling point, thus cooking the vegetables faster. In fact, the amount of salt typically added does not raise the temperature significantly – or improve the flavour, since only a minuscule amount is absorbed.",
+                        translation: "Gần đây có một phong trào trong thế giới ẩm thực, trong đó các đầu bếp đang hợp tác với các nhà khoa học để tự học về hóa học và vật lý của ẩm thực. Ngay cả các học giả cũng đang hào hứng với những kết quả này. Colin Osborne thuộc Hội Hóa học Hoàng gia London rất hào hứng: 'Các đầu bếp đang sử dụng những phương pháp kỳ lạ để tạo ra các món ăn thú vị mà nếu không có khoa học hiện đại thì không thể làm được'. Bạn có thể tự hỏi có gì sai với các truyền thống nấu ăn lâu đời. Thực tế là, nhiều phương pháp nấu ăn ăn sâu vào văn hóa lại kém hoàn hảo. Osborne đưa ra ví dụ về niềm tin phổ biến rằng rán thịt giúp giữ lại độ ẩm, trong khi các nhà nghiên cứu cân thịt thực sự phát hiện ra độ ẩm bị mất đi trong quá trình này. Một ví dụ khác là kỹ thuật lâu đời cho thêm muối khi luộc rau để tăng điểm sôi của nước, giúp rau chín nhanh hơn. Trên thực tế, lượng muối thường thêm vào không làm tăng nhiệt độ đáng kể – cũng không cải thiện hương vị, vì chỉ một lượng cực nhỏ được hấp thụ."
+                    },
+                    {
+                        id: "p3_2",
+                        text: "Hervé This, director of the Molecular Gastronomy team at the French National Institute for Agricultural Research, spends much of his time trying to disprove culinary old wives’ tales. He is empirically testing traditional beliefs about cooking and disproving the more absurd, tackling such questions as whether it’s better to add vinaigrette to potato salad while the potatoes are still hot. “The first modern chemists used kitchen equipment to do their experiments,” Hervé This explains. “Since then, chemistry has undergone massive changes – but cooking methods have remained largely as they were in the Middle Ages.”",
+                        translation: "Hervé This, giám đốc nhóm Ẩm thực phân tử tại Viện Nghiên cứu Nông nghiệp Quốc gia Pháp, dành nhiều thời gian để cố gắng bác bỏ các quan niệm dân gian về nấu ăn. Ông đang kiểm tra thực nghiệm các niềm tin truyền thống về nấu ăn và bác bỏ những điều vô lý hơn, giải quyết các câu hỏi như liệu có tốt hơn khi thêm nước sốt vinaigrette vào salad khoai tây khi khoai tây vẫn còn nóng. 'Những nhà hóa học hiện đại đầu tiên đã sử dụng dụng cụ bếp để làm thí nghiệm', Hervé This giải thích. 'Kể từ đó, hóa học đã trải qua những thay đổi to lớn – nhưng các phương pháp nấu ăn về cơ bản vẫn giữ nguyên như thời Trung cổ'."
+                    },
+                    {
+                        id: "p3_3",
+                        text: "“It’s seriously important work,” says Peter Barham, a physicist at Bristol University. “If you understand what’s going on in cooking, you’ll be better equipped to improve it.” Barham contends that it’s difficult to get consistent results from cookery books, because recipes are typically poorly written. In stark contrast, he notes, scientific papers are subject to peer review, whereby experts pore over experiments to ensure they can be accurately reproduced.",
+                        translation: "'Đó là công việc cực kỳ quan trọng', Peter Barham, một nhà vật lý tại Đại học Bristol nói. 'Nếu bạn hiểu điều gì đang xảy ra trong nấu ăn, bạn sẽ được trang bị tốt hơn để cải thiện nó'. Barham cho rằng rất khó để có được kết quả nhất quán từ các sách nấu ăn, vì các công thức thường được viết kém. Ngược lại hoàn toàn, ông lưu ý, các bài báo khoa học phải trải qua sự phản biện của đồng nghiệp, theo đó các chuyên gia nghiên cứu kỹ các thí nghiệm để đảm bảo chúng có thể được tái tạo chính xác."
+                    },
+                    {
+                        id: "p3_4",
+                        text: "Barham also collaborates with leading British chef Heston Blumenthal, proprietor of The Fat Duck, a restaurant in the south of England. The restaurant is widely regarded as one of the best in the world, serving delightfully unexpected dishes such as nitro scrambled egg and bacon ice cream.",
+                        translation: "Barham cũng hợp tác với đầu bếp hàng đầu nước Anh Heston Blumenthal, chủ sở hữu của The Fat Duck, một nhà hàng ở phía nam nước Anh. Nhà hàng này được đánh giá rộng rãi là một trong những nhà hàng tốt nhất thế giới, phục vụ các món ăn bất ngờ thú vị như trứng chưng nitơ lỏng và kem vị thịt hún khói."
+                    },
+                    {
+                        id: "p3_5",
+                        text: "When Simon Campbell of the Royal Society of Chemistry bestowed an honorary fellowship on Blumenthal for creative applications of science to cooking, he said: “The scientific community admires and respects the research that Mr Blumenthal has performed to harness cuisine to science. Through his inquisitive and innovative approach to food he has underlined spectacularly how chemistry permeates all aspects of texture, taste and smell.”",
+                        translation: "Khi Simon Campbell thuộc Hội Hóa học Hoàng gia trao tặng danh hiệu hội viên danh dự cho Blumenthal vì những ứng dụng sáng tạo của khoa học vào nấu ăn, ông nói: 'Cộng đồng khoa học ngưỡng mộ và tôn trọng nghiên cứu mà ông Blumenthal đã thực hiện để gắn kết ẩm thực với khoa học. Thông qua phương pháp tiếp cận thực phẩm tò mò và đổi mới, ông đã nhấn mạnh một cách ngoạn mục cách hóa học thấm thấu vào mọi khía cạnh của cấu trúc, vị và mùi hương'."
+                    },
+                    {
+                        id: "p3_6",
+                        text: "Although some dishes sound gimmicky, this innovative approach to cooking is paying off. El Bulli in Catalonia, Spain – directed by chef Ferran Adrià – is another leading restaurant thus enthusiastically engaging with scientific techniques. It closes for six months of the year (to allow six months for research and development), yet is rumoured to be booked out for an entire year in advance.",
+                        translation: "Mặc dù một số món ăn nghe có vẻ khoa trương, phương pháp tiếp cận đổi mới nấu ăn này đang mang lại thành quả. El Bulli ở Catalonia, Tây Ban Nha – do đầu bếp Ferran Adrià điều hành – là một nhà hàng hàng đầu khác nhiệt tình tham gia vào các kỹ thuật khoa học. Nó đóng cửa sáu tháng trong năm (để dành sáu tháng cho nghiên cứu và phát triển), nhưng được đồn đại là đã được đặt kín chỗ trước cả một năm."
+                    },
+                    {
+                        id: "p3_7",
+                        text: "Such restaurants are part of the movement known as ‘molecular gastronomy’, an expression coined by physicist Nicholas Kurti, working in collaboration with Hervé This. Kurti once quipped that “it is a sad reflection that we know the temperature inside the stars better than the temperature inside a soufflé*.” Kurti and Hervé This devised the expression ‘molecular gastronomy’ during the 1980s to denote the science of culinary transformations and eating phenomena, and differentiate it from food science.",
+                        translation: "Các nhà hàng như vậy là một phần của phong trào được gọi là 'ẩm thực phân tử', một thuật ngữ được đặt ra bởi nhà vật lý Nicholas Kurti, hợp tác với Hervé This. Kurti từng châm biếm rằng 'thật là một phản ánh đáng buồn khi chúng ta biết nhiệt độ bên trong các ngôi sao tốt hơn nhiệt độ bên trong một bánh soufflé'. Kurti và Hervé This đã nghĩ ra thuật ngữ 'ẩm thực phân tử' vào những năm 1980 để biểu thị khoa học về sự biến đổi culinary và hiện tượng ăn uống, và phân biệt nó với khoa học thực phẩm."
+                    },
+                    {
+                        id: "p3_8",
+                        text: "“Twenty years ago the worlds of science and cooking were neatly compartmentalised,” agrees author Harold McGee, a top food science writer. “There was food science: an applied science mainly concerned with understanding the materials and processes of industrial manufacturing. And there was the world of domestic and restaurant cooking, traditional crafts that had never attracted much scientific attention.”",
+                        translation: "'Hai mươi năm trước, thế giới khoa học và nấu ăn được phân chia ngăn nắp', tác giả Harold McGee đồng ý. 'Có khoa học thực phẩm: một khoa học ứng dụng chủ yếu liên quan đến việc hiểu các nguyên liệu và quy trình sản xuất công nghiệp. Và có thế giới nấu ăn gia đình và nhà hàng, những nghề thủ công truyền thống chưa bao giờ thu hút nhiều sự chú ý của khoa học'."
+                    },
+                    {
+                        id: "p3_9",
+                        text: "A lot has changed in the two decades since he published his influential book on the topic. In a revised edition, McGee says the book was “riding a rising wave of general interest in food, a wave that grew and grew, and knocked down the barriers between science and cooking, especially in the last decade. Science has found its way into the kitchen, and cooking into laboratories.”",
+                        translation: "Rất nhiều điều đã thay đổi trong hai thập kỷ kể từ khi ông xuất bản cuốn sách có ảnh hưởng về chủ đề này. Trong một bản sửa đổi, McGee nói cuốn sách đã 'cưỡi trên làn sóng quan tâm chung ngày càng tăng đối với thực phẩm, một làn sóng đã phát triển và xô đổ các rào cản giữa khoa học và nấu ăn. Khoa học đã tìm được đường vào căn bếp, và nấu ăn vào các phòng thí nghiệm'."
+                    },
+                    {
+                        id: "p3_10",
+                        text: "So what does the future hold? Rachel Edwards Stuart is a graduate PhD student who is studying some remarkable food additives, including modified cellulose gels that solidify on heating and melt again as they are cooled. The idea is to make dishes that develop different flavours as they are eaten. Her other project is creating drinks that change flavour. “The concept came from Roald Dahl’s children’s book Charlie and the Chocolate Factory, where Willy Wonka makes a bubble gum that is a whole meal in one sweet,” she says. Unfortunately, Edwards Stuart was unable to say more, due to a confidentiality agreement with the restaurant for which she conducts her research.",
+                        translation: "Vậy tương lai sẽ ra sao? Rachel Edwards Stuart là một nghiên cứu sinh tiến sĩ đang nghiên cứu một số phụ gia thực phẩm đáng chú ý, bao gồm các gel cellulose biến tính đông đặc khi đun nóng và tan chảy lại khi làm nguội. Ý tưởng là tạo ra các món ăn phát triển các hương vị khác nhau khi chúng được ăn. Ý tưởng đến từ cuốn sách thiếu nhi Charlie và Nhà máy Sô-cô-la của Roald Dahl."
+                    },
+                    {
+                        id: "p3_11",
+                        text: "While Hervé This, Blumenthal and Edwards Stuart are the pioneers, the next phase will be to bring science into kitchens at home. Already there are books that provide an insight into the wondrous chemistry that turns humble ingredients into cuisine. And as the movement grows it will not be long before we see laboratory test tubes, flasks and maybe the odd centrifuge on sale next to carving knives, rolling pins and pressure cookers.",
+                        translation: "Trong khi Hervé This, Blumenthal và Edwards Stuart là những người tiên phong, giai đoạn tiếp theo sẽ là đưa khoa học vào các căn bếp tại gia. Đã có những cuốn sách mang lại cái nhìn sâu sắc về hóa học kỳ diệu biến những nguyên liệu khiêm tốn thành món ăn hảo hạng."
+                    }
+                ],
+                glossary: [
+                    { word: "Cuisine", type: "n", vn: "Ẩm thực", synonym: "Cooking style, food" },
+                    { word: "Ingrained", type: "adj", vn: "In sâu, lâu đời", synonym: "Deep-rooted, established" },
+                    { word: "Minuscule", type: "adj", vn: "Cực nhỏ", synonym: "Tiny, minute" },
+                    { word: "Empirically", type: "adv", vn: "Bằng con đường thực nghiệm", synonym: "By experiment, practically" },
+                    { word: "Peer review", type: "n", vn: "Phản biện đồng nghiệp", synonym: "Expert evaluation" },
+                    { word: "Compartmentalised", type: "adj", vn: "Phân chia rạch ròi", synonym: "Divided, separated" },
+                    { word: "Molecular Gastronomy", type: "n", vn: "Ẩm thực phân tử", synonym: "Food chemistry science" },
+                    { word: "Additives", type: "n", vn: "Chất phụ gia", synonym: "Supplements, chemicals" },
+                    { word: "Confidentiality", type: "n", vn: "Sự bảo mật", synonym: "Secrecy, privacy" },
+                    { word: "Pioneers", type: "n", vn: "Những người tiên phong", synonym: "Innovators, trailblazers" }
+                ],
+                questions: [
+                    {
+                        id: 27,
+                        type: "tfng",
+                        text: "27. Scientists and chefs have a long established history of working together.",
+                        answer: "NO",
+                        options: ["YES", "NO", "NOT GIVEN"],
+                        sentenceId: "p3_1",
+                        expAnswer: "NO",
+                        expContext: "There is a recent movement in the world of food, in which chefs are collaborating with scientists...",
+                        expTrans: "Bài đọc nêu đây là một phong trào MỚI GẦN ĐÂY (recent movement), chứ không phải có lịch sử hợp tác lâu đời (long established history).",
+                        synonyms: "recent movement ➔ NOT long established history"
+                    },
+                    {
+                        id: 28,
+                        type: "tfng",
+                        text: "28. Traditional ways of cooking tend to be supported by modern scientific research.",
+                        answer: "NO",
+                        options: ["YES", "NO", "NOT GIVEN"],
+                        sentenceId: "p3_1",
+                        expAnswer: "NO",
+                        expContext: "...many culturally ingrained cooking methods are less than perfect. Osborne gives the example... moisture is lost...",
+                        expTrans: "Khoa học hiện đại chứng minh nhiều cách nấu truyền thống là 'kém hoàn hảo' và sai lầm (ví dụ: rán thịt làm mất độ ẩm chứ không phải giữ độ ẩm).",
+                        synonyms: "supported by research ➔ less than perfect / disproving traditional beliefs"
+                    },
+                    {
+                        id: 29,
+                        type: "tfng",
+                        text: "29. The food produced by Heston Blumenthal at The Fat Duck is unconventional.",
+                        answer: "YES",
+                        options: ["YES", "NO", "NOT GIVEN"],
+                        sentenceId: "p3_4",
+                        expAnswer: "YES",
+                        expContext: "...serving delightfully unexpected dishes such as nitro scrambled egg and bacon ice cream.",
+                        expTrans: "Các món ăn như trứng chưng nitơ lỏng và kem vị thịt hún khói là độc lạ / độc đáo (unconventional / unexpected).",
+                        synonyms: "unconventional ➔ delightfully unexpected"
+                    },
+                    {
+                        id: 30,
+                        type: "tfng",
+                        text: "30. El Bulli is the most popular restaurant of its kind in Spain.",
+                        answer: "NOT GIVEN",
+                        options: ["YES", "NO", "NOT GIVEN"],
+                        sentenceId: "p3_6",
+                        expAnswer: "NOT GIVEN",
+                        expContext: "El Bulli in Catalonia, Spain... is another leading restaurant...",
+                        expTrans: "Bài đọc nói El Bulli là 'một nhà hàng hàng đầu khác', không đề cập nó có phải là nhà hàng 'nổi tiếng nhất' (most popular) ở Tây Ban Nha hay không.",
+                        synonyms: "most popular restaurant ➔ Not mentioned in text"
+                    },
+                    {
+                        id: 31,
+                        type: "tfng",
+                        text: "31. McGee has plans to open his own restaurant.",
+                        answer: "NOT GIVEN",
+                        options: ["YES", "NO", "NOT GIVEN"],
+                        sentenceId: "p3_8",
+                        expAnswer: "NOT GIVEN",
+                        expContext: "“Twenty years ago the worlds of science and cooking...” agrees author Harold McGee...",
+                        expTrans: "Bài đọc giới thiệu Harold McGee là nhà viết sách khoa học thực phẩm, không hề đề cập việc ông có kế hoạch mở nhà hàng riêng.",
+                        synonyms: "plans to open his own restaurant ➔ Not mentioned in text"
+                    },
+                    {
+                        id: 32,
+                        type: "mc",
+                        text: "32. The purpose of Hervé This’s research is to",
+                        answer: "C",
+                        options: [
+                            "A. determine how chemistry has influenced modern cooking.",
+                            "B. provide a scientific basis for traditional cooking methods.",
+                            "C. show that long held beliefs about cooking are wrong.",
+                            "D. offer practical advice to those who cook at home."
+                        ],
+                        sentenceId: "p3_2",
+                        expAnswer: "C. show that long held beliefs about cooking are wrong.",
+                        expContext: "...spends much of his time trying to disprove culinary old wives’ tales. He is empirically testing traditional beliefs...",
+                        expTrans: "Mục đích nghiên cứu của Hervé This là bác bỏ những quan niệm dân gian / niềm tin sai lầm lâu đời về nấu ăn.",
+                        synonyms: "disprove old wives' tales ➔ show long held beliefs are wrong"
+                    },
+                    {
+                        id: 33,
+                        type: "mc",
+                        text: "33. According to Peter Barham, one difference between cookery books and scientific papers is that",
+                        answer: "A",
+                        options: [
+                            "A. scientific papers are checked by more people.",
+                            "B. the writers of cookery books need not be qualified.",
+                            "C. the language used in scientific papers is more complicated.",
+                            "D. recipe writers can profit more financially than scientific writers."
+                        ],
+                        sentenceId: "p3_3",
+                        expAnswer: "A. scientific papers are checked by more people.",
+                        expContext: "In stark contrast, he notes, scientific papers are subject to peer review, whereby experts pore over experiments...",
+                        expTrans: "Các bài báo khoa học trải qua quá trình phản biện đồng nghiệp (peer review), tức là được nhiều chuyên gia kiểm tra.",
+                        synonyms: "checked by more people ➔ subject to peer review"
+                    },
+                    {
+                        id: 34,
+                        type: "mc",
+                        text: "34. Nicholas Kurti referred to a soufflé in order to",
+                        answer: "B",
+                        options: [
+                            "A. give an example of a dish that can easily be ruined by excess heat.",
+                            "B. highlight the inadequacy of scientific research into cooking.",
+                            "C. show that cooking is similar to other scientific processes.",
+                            "D. confess his own limitations as a cook."
+                        ],
+                        sentenceId: "p3_7",
+                        expAnswer: "B. highlight the inadequacy of scientific research into cooking.",
+                        expContext: "Kurti once quipped that “it is a sad reflection that we know the temperature inside the stars better than the temperature inside a soufflé.”",
+                        expTrans: "Kurti nhắc tới bánh soufflé để nhấn mạnh sự thiếu sót/yếu kém của nghiên cứu khoa học đối với nấu ăn so với thiên văn học.",
+                        synonyms: "inadequacy of research ➔ sad reflection that we know stars better than soufflé"
+                    },
+                    {
+                        id: 35,
+                        type: "mc",
+                        text: "35. One aspect of Rachel Edwards Stuart’s research involves",
+                        answer: "C",
+                        options: [
+                            "A. matching solid food to complementary liquids.",
+                            "B. determining which tastes appeal to young people.",
+                            "C. studying how food changes form in certain conditions.",
+                            "D. evaluating the risk of damage from using preservatives in food."
+                        ],
+                        sentenceId: "p3_10",
+                        expAnswer: "C. studying how food changes form in certain conditions.",
+                        expContext: "...studying some remarkable food additives, including modified cellulose gels that solidify on heating and melt again as they are cooled.",
+                        expTrans: "Nghiên cứu của Rachel liên quan tới việc thực phẩm thay đổi hình dạng (đông đặc khi đun nóng, tan chảy khi làm nguội) trong các điều kiện nhiệt độ.",
+                        synonyms: "changes form in certain conditions ➔ solidify on heating and melt when cooled"
+                    },
+                    {
+                        id: 36,
+                        type: "mc",
+                        text: "36. Colin Osborne explains that _________",
+                        answer: "E",
+                        options: [
+                            "A. there used to be a clear division between cooking and science.",
+                            "B. well established cooking traditions have come back into fashion.",
+                            "C. cooking has failed to keep pace with scientific developments.",
+                            "D. an imaginary invention inspired scientific research.",
+                            "E. science has helped cooks make meals that would otherwise be unachievable.",
+                            "F. an award was given to acknowledge work in scientific gastronomy.",
+                            "G. there is new terminology to describe the study of culinary reactions.",
+                            "H. the home cook is not able to achieve the same level of innovation as a professional chef."
+                        ],
+                        sentenceId: "p3_1",
+                        expAnswer: "E. science has helped cooks make meals that would otherwise be unachievable.",
+                        expContext: "“Chefs are using unusual methods to produce exciting dishes that would be impossible without modern science,” he says.",
+                        expTrans: "Osborne giải thích rằng khoa học giúp tạo ra những món ăn mà nếu không có khoa học thì không thể làm được.",
+                        synonyms: "impossible without modern science ➔ otherwise be unachievable"
+                    },
+                    {
+                        id: 37,
+                        type: "mc",
+                        text: "37. Hervé This’s research has led him to the view that _________",
+                        answer: "C",
+                        options: [
+                            "A. there used to be a clear division between cooking and science.",
+                            "B. well established cooking traditions have come back into fashion.",
+                            "C. cooking has failed to keep pace with scientific developments.",
+                            "D. an imaginary invention inspired scientific research.",
+                            "E. science has helped cooks make meals that would otherwise be unachievable.",
+                            "F. an award was given to acknowledge work in scientific gastronomy.",
+                            "G. there is new terminology to describe the study of culinary reactions.",
+                            "H. the home cook is not able to achieve the same level of innovation as a professional chef."
+                        ],
+                        sentenceId: "p3_2",
+                        expAnswer: "C. cooking has failed to keep pace with scientific developments.",
+                        expContext: "“Since then, chemistry has undergone massive changes – but cooking methods have remained largely as they were in the Middle Ages.”",
+                        expTrans: "Nghiên cứu của Hervé This dẫn ông tới quan điểm nấu ăn đã không theo kịp các phát triển khoa học (vẫn kẹt ở thời Trung cổ).",
+                        synonyms: "failed to keep pace ➔ remained as they were in the Middle Ages"
+                    },
+                    {
+                        id: 38,
+                        type: "mc",
+                        text: "38. Thanks to the joint effort of Nicholas Kurti and Hervé This, _________",
+                        answer: "G",
+                        options: [
+                            "A. there used to be a clear division between cooking and science.",
+                            "B. well established cooking traditions have come back into fashion.",
+                            "C. cooking has failed to keep pace with scientific developments.",
+                            "D. an imaginary invention inspired scientific research.",
+                            "E. science has helped cooks make meals that would otherwise be unachievable.",
+                            "F. an award was given to acknowledge work in scientific gastronomy.",
+                            "G. there is new terminology to describe the study of culinary reactions.",
+                            "H. the home cook is not able to achieve the same level of innovation as a professional chef."
+                        ],
+                        sentenceId: "p3_7",
+                        expAnswer: "G. there is new terminology to describe the study of culinary reactions.",
+                        expContext: "Kurti and Hervé This devised the expression ‘molecular gastronomy’...",
+                        expTrans: "Nhờ nỗ lực của Kurti và Hervé This, một thuật ngữ mới ('molecular gastronomy') đã được ra đời.",
+                        synonyms: "new terminology ➔ devised the expression 'molecular gastronomy'"
+                    },
+                    {
+                        id: 39,
+                        type: "mc",
+                        text: "39. Food writer Harold McGee says that _________",
+                        answer: "A",
+                        options: [
+                            "A. there used to be a clear division between cooking and science.",
+                            "B. well established cooking traditions have come back into fashion.",
+                            "C. cooking has failed to keep pace with scientific developments.",
+                            "D. an imaginary invention inspired scientific research.",
+                            "E. science has helped cooks make meals that would otherwise be unachievable.",
+                            "F. an award was given to acknowledge work in scientific gastronomy.",
+                            "G. there is new terminology to describe the study of culinary reactions.",
+                            "H. the home cook is not able to achieve the same level of innovation as a professional chef."
+                        ],
+                        sentenceId: "p3_8",
+                        expAnswer: "A. there used to be a clear division between cooking and science.",
+                        expContext: "“Twenty years ago the worlds of science and cooking were neatly compartmentalised,” agrees author Harold McGee...",
+                        expTrans: "Harold McGee cho rằng từng có sự phân chia rạch ròi giữa khoa học và nấu ăn.",
+                        synonyms: "clear division ➔ neatly compartmentalised"
+                    },
+                    {
+                        id: 40,
+                        type: "mc",
+                        text: "40. Rachel Edwards Stuart gives an example of a case where _________",
+                        answer: "D",
+                        options: [
+                            "A. there used to be a clear division between cooking and science.",
+                            "B. well established cooking traditions have come back into fashion.",
+                            "C. cooking has failed to keep pace with scientific developments.",
+                            "D. an imaginary invention inspired scientific research.",
+                            "E. science has helped cooks make meals that would otherwise be unachievable.",
+                            "F. an award was given to acknowledge work in scientific gastronomy.",
+                            "G. there is new terminology to describe the study of culinary reactions.",
+                            "H. the home cook is not able to achieve the same level of innovation as a professional chef."
+                        ],
+                        sentenceId: "p3_10",
+                        expAnswer: "D. an imaginary invention inspired scientific research.",
+                        expContext: "“The concept came from Roald Dahl’s children’s book Charlie and the Chocolate Factory, where Willy Wonka makes a bubble gum...”",
+                        expTrans: "Rachel đưa ra ví dụ về một phát minh tưởng tượng (kẹo cao su trong truyện Charlie và Nhà máy Sô-cô-la) đã truyền cảm hứng cho nghiên cứu khoa học.",
+                        synonyms: "imaginary invention ➔ Willy Wonka's bubble gum from children's book"
+                    }
+                ]
+            }
+        };
+
+        // Render Passage Panel
+        function renderPassage(passageId) {
+            const data = testData[passageId];
+            const container = document.getElementById('passageContainer');
+            
+            let html = `
+                <div class="passage-title">${data.title}</div>
+                <div class="passage-subtitle">${data.subtitle}</div>
+            `;
+
+            data.paragraphs.forEach(p => {
+                html += `
+                    <div class="paragraph-block" id="block_${p.id}">
+                        <p>${p.text}</p>
+                        <button class="btn-translate" onclick="toggleTranslation('${p.id}')">🌟 Mở dịch đoạn này</button>
+                        <div class="translation-box" id="trans_${p.id}">${p.translation}</div>
+                    </div>
+                `;
+            });
+
+            // Glossary Table
+            html += `
+                <div class="glossary-card">
+                    <h3>📚 Academic Vocabulary Glossary (B2 - C2)</h3>
+                    <table class="glossary-table">
+                        <thead>
+                            <tr>
+                                <th>Từ Vựng</th>
+                                <th>Loại Từ</th>
+                                <th>Nghĩa Tiếng Việt</th>
+                                <th>Synonyms / Dẫn Chứng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            data.glossary.forEach(g => {
+                html += `
+                    <tr>
+                        <td><strong>${g.word}</strong></td>
+                        <td><em>${g.type}</em></td>
+                        <td>${g.vn}</td>
+                        <td>${g.synonym}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        // Render Questions Panel
+        function renderQuestions(passageId) {
+            const data = testData[passageId];
+            const container = document.getElementById('questionsContainer');
+            const badge = document.getElementById('questionCountBadge');
+
+            if (passageId === 1) badge.innerText = "Questions 1–13";
+            else if (passageId === 2) badge.innerText = "Questions 14–26";
+            else badge.innerText = "Questions 27–40";
+
+            let html = "";
+
+            data.questions.forEach(q => {
+                const isAnswered = answeredQuestions.has(q.id);
+                const userAns = userAnswers[q.id];
+
+                html += `<div class="question-block" id="qblock_${q.id}">`;
+                html += `<div class="question-num">Question ${q.id}</div>`;
+                html += `<div class="question-text">${q.text}</div>`;
+
+                if (q.type === 'tfng' || q.type === 'mc') {
+                    html += `<div class="options-group">`;
+                    q.options.forEach(opt => {
+                        let optVal = opt;
+                        if (q.type === 'mc' && opt.length > 2 && opt[1] === '.') {
+                            optVal = opt[0]; // e.g. "A" from "A. text"
+                        } else if (opt.includes(" - ")) {
+                            optVal = opt.split(" - ")[0];
+                        }
+
+                        let statusClass = "";
+                        if (isAnswered) {
+                            if (optVal === q.answer) {
+                                statusClass = "selected-correct";
+                            } else if (userAns === optVal) {
+                                statusClass = "selected-wrong";
+                            }
+                        }
+
+                        html += `
+                            <button class="option-btn ${statusClass}" onclick="handleOptionSelect(${q.id}, '${optVal}', '${q.answer}')">
+                                <span>${opt}</span>
+                                ${statusClass === 'selected-correct' ? '<span>✅</span>' : ''}
+                                ${statusClass === 'selected-wrong' ? '<span>❌</span>' : ''}
+                            </button>
+                        `;
+                    });
+                    html += `</div>`;
+                } else if (q.type === 'fill') {
+                    const isCorrect = isAnswered && userAns && userAns.trim().toLowerCase() === q.answer.toLowerCase();
+                    html += `
+                        <div style="display: flex; gap: 8px;">
+                            <input type="text" class="text-input" id="input_${q.id}" value="${userAns || ''}" placeholder="Nhập 1 từ duy nhất..." ${isAnswered ? 'disabled' : ''}>
+                            <button class="btn-check-input" onclick="handleFillCheck(${q.id}, '${q.answer}')">Check</button>
+                        </div>
+                    `;
+                }
+
+                // Explanation card
+                html += `
+                    <div class="explanation-box" id="exp_${q.id}" style="display: ${isAnswered ? 'block' : 'none'};">
+                        <div class="exp-item"><span class="exp-label">(1) ĐÁP ÁN:</span> <strong>${q.expAnswer}</strong></div>
+                        <div class="exp-item"><span class="exp-label">(2) ĐOẠN CHỨA ĐÁP ÁN:</span> ${q.expContext}</div>
+                        <div class="exp-item"><span class="exp-label">(3) DỊCH NGHĨA:</span> ${q.expTrans}</div>
+                        <div class="exp-item"><span class="exp-label">(4) TỪ ĐỒNG NGHĨA:</span> <code>${q.synonyms}</code></div>
+                        <button class="btn-locate" onclick="locateSentence('${q.sentenceId}')">🖱️ Định vị vị trí dẫn chứng bài đọc</button>
+                    </div>
+                `;
+
+                html += `</div>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Toggle Paragraph Translation
+        function toggleTranslation(id) {
+            const box = document.getElementById(`trans_${id}`);
+            if (box.style.display === 'block') {
+                box.style.display = 'none';
+            } else {
+                box.style.display = 'block';
+            }
+        }
+
+        // Option Selection Handler
+        function handleOptionSelect(qId, selectedVal, correctVal) {
+            userAnswers[qId] = selectedVal;
+            answeredQuestions.add(qId);
+
+            if (selectedVal === correctVal) {
+                playSound('correct');
+                confetti({ particleCount: 30, spread: 60, origin: { y: 0.8 } });
+            } else {
+                playSound('wrong');
+            }
+
+            updateProgress();
+            renderQuestions(currentPassage);
+        }
+
+        // Fill-in Check Handler
+        function handleFillCheck(qId, correctVal) {
+            const inputEl = document.getElementById(`input_${qId}`);
+            if (!inputEl) return;
+
+            const val = inputEl.value.trim();
+            if (!val) return;
+
+            userAnswers[qId] = val;
+            answeredQuestions.add(qId);
+
+            if (val.toLowerCase() === correctVal.toLowerCase()) {
+                playSound('correct');
+                confetti({ particleCount: 30, spread: 60, origin: { y: 0.8 } });
+            } else {
+                playSound('wrong');
+            }
+
+            updateProgress();
+            renderQuestions(currentPassage);
+        }
+
+        // Locate Evidence Sentence in Passage
+        function locateSentence(sentenceId) {
+            const block = document.getElementById(`block_${sentenceId}`);
+            if (block) {
+                block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                block.style.backgroundColor = '#fff200';
+                setTimeout(() => {
+                    block.style.backgroundColor = '#f8f9fa';
+                }, 2000);
+            }
+        }
+
+        // Switch Passage Tabs
+        function switchPassage(num) {
+            currentPassage = num;
+            document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+                btn.classList.toggle('active', idx === num - 1);
+            });
+            renderPassage(num);
+            renderQuestions(num);
+        }
+
+        // Update Overall Progress
+        function updateProgress() {
+            const total = 40;
+            const count = answeredQuestions.size;
+            const pct = Math.round((count / total) * 100);
+
+            document.getElementById('progressFill').style.width = `${pct}%`;
+            document.getElementById('progressText').innerText = `${count} / ${total} (${pct}%)`;
+        }
+
+        // Countdown Timer Logic
+        function toggleTimer() {
+            const btn = document.getElementById('btnTimer');
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                btn.innerText = "TIẾP TỤC TÍNH GIỜ";
+                btn.style.background = "var(--pastel-yellow)";
+            } else {
+                isTimerRunning = true;
+                btn.innerText = "TẠM DỪNG ⏸️";
+                btn.style.background = "#ff7675";
+                timerInterval = setInterval(() => {
+                    timeRemaining--;
+                    updateTimerDisplay();
+                    if (timeRemaining <= 0) {
+                        clearInterval(timerInterval);
+                        isTimerRunning = false;
+                        alert("Đã hết giờ làm bài, vui lòng nộp bài nhé!");
+                        disableAllInputs();
+                    }
+                }, 1000);
+            }
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timeRemaining / 60);
+            const secs = timeRemaining % 60;
+            document.getElementById('timerDisplay').innerText = 
+                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function disableAllInputs() {
+            document.querySelectorAll('button, input, select').forEach(el => {
+                if (!el.classList.contains('tab-btn') && !el.classList.contains('btn-submit')) {
+                    el.disabled = true;
+                }
+            });
+        }
+
+        // Custom Highlight Selection Tool
+        document.addEventListener('mouseup', () => {
+            const selection = window.getSelection();
+            if (!selection.isCollapsed) {
+                const text = selection.toString().trim();
+                if (text.length > 2) {
+                    const range = selection.getRangeAt(0);
+                    const mark = document.createElement('mark');
+                    mark.className = 'user-highlight';
+                    try {
+                        range.surroundContents(mark);
+                    } catch (e) {
+                        // Ignore if selection spans multiple nodes
+                    }
+                }
+            }
+        });
+
+        // Submit & Score Calculation Modal
+        function submitTest() {
+            let correctCount = 0;
+
+            // Check all 40 questions across testData
+            [1, 2, 3].forEach(passageId => {
+                testData[passageId].questions.forEach(q => {
+                    const userAns = userAnswers[q.id];
+                    if (userAns) {
+                        if (q.type === 'fill') {
+                            if (userAns.trim().toLowerCase() === q.answer.toLowerCase()) correctCount++;
+                        } else {
+                            if (userAns === q.answer) correctCount++;
+                        }
+                    }
+                });
+            });
+
+            // Calculate Estimated IELTS Band
+            let band = "5.0";
+            if (correctCount >= 39) band = "9.0";
+            else if (correctCount >= 37) band = "8.5";
+            else if (correctCount >= 35) band = "8.0";
+            else if (correctCount >= 33) band = "7.5";
+            else if (correctCount >= 30) band = "7.0";
+            else if (correctCount >= 27) band = "6.5";
+            else if (correctCount >= 23) band = "6.0";
+            else if (correctCount >= 19) band = "5.5";
+
+            document.getElementById('modalScoreText').innerText = `${correctCount}/40`;
+            document.getElementById('modalIeltsBand').innerText = `Dự đoán IELTS Band: ${band}`;
+
+            const titleEl = document.getElementById('modalFeedbackTitle');
+            const descEl = document.getElementById('modalFeedbackDesc');
+
+            if (correctCount >= 35) {
+                titleEl.innerText = "🎉 THIÊN TÀI READING!";
+                descEl.innerText = "Kỹ năng làm bài của bạn đạt cấp độ IELTS 8.0+ cực kỳ ấn tượng!";
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            } else if (correctCount >= 27) {
+                titleEl.innerText = "🌟 LÀM TỐT LẮM!";
+                descEl.innerText = "Bạn đã nắm rất vững kiến thức và kỹ năng làm bài IELTS Reading.";
+            } else {
+                titleEl.innerText = "💪 CỐ LÊN NHÉ!";
+                descEl.innerText = "Hãy xem lại phần giải thích chi tiết bên dưới để rút kinh nghiệm nhé!";
+            }
+
+            document.getElementById('scoreModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('scoreModal').style.display = 'none';
+        }
+
+        // Initialize App
+        window.onload = () => {
+            renderPassage(1);
+            renderQuestions(1);
+        };
+    </script>
+</body>
+</html>
